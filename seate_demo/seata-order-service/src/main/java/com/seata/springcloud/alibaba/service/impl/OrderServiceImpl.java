@@ -5,6 +5,7 @@ import com.seata.springcloud.alibaba.domain.Order;
 import com.seata.springcloud.alibaba.service.AccountService;
 import com.seata.springcloud.alibaba.service.OrderService;
 import com.seata.springcloud.alibaba.service.StorageService;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
+    @GlobalTransactional(name = "fsp-create-order",rollbackFor = Exception.class)
     public void create(Order order) {
        log.info("----->开始新建订单");
        //1.新建订单
